@@ -1,16 +1,15 @@
-
 use std::time::{SystemTime, UNIX_EPOCH};
 
-fn happy() -> i32{
-    let mut count =0;
+fn happy() -> i32 {
+    let mut count = 0;
     for a in 0..10 {
         for b in 0..10 {
             for c in 0..10 {
                 for d in 0..10 {
                     for e in 0..10 {
-                        for f in 0..10  {
-                            if a+b+c == d+e+f {
-                                count = count +1;
+                        for f in 0..10 {
+                            if a + b + c == d + e + f {
+                                count = count + 1;
                             }
                         }
                     }
