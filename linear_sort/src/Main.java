@@ -18,10 +18,33 @@ public class Main {
         for (int i = 0; i < SIZE; i++) {
             array[i] = random.nextInt(MAX_ARRAY_VALUE);
         }
-        int[] ints = buketSort(array);
+//        int[] ints = buketSort(array);
+        int[] ints = countingSort(array);
         for (int i = 0; i < ints.length; i++) {
             System.out.print(ints[i] + " ");
         }
+    }
+
+    static int[] countingSort(int[] array) {
+        int[] countArray = new int[MAX_ARRAY_VALUE];
+        int[] outArray = new int[array.length];
+
+        for(int i=0;i<array.length; i++) {
+            countArray[array[i]] = countArray[array[i]]+1;
+        }
+
+        for(int i=0;i< countArray.length-1; i++) {
+            countArray[i+1]=countArray[i+1]+countArray[i];
+        }
+
+        for(int i=array.length-1; i>=0; i--) {
+            int num = array[i];
+            int place = countArray[num] -1;
+            countArray[num] = place;
+            outArray[place] = num;
+        }
+
+        return outArray;
     }
 
     static int[] buketSort(int[] array) {
