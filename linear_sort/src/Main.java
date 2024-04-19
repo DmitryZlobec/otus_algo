@@ -19,10 +19,36 @@ public class Main {
             array[i] = random.nextInt(MAX_ARRAY_VALUE);
         }
 //        int[] ints = buketSort(array);
-        int[] ints = countingSort(array);
+//        int[] ints = countingSort(array);
+        int[] ints = radixSort(array);
         for (int i = 0; i < ints.length; i++) {
             System.out.print(ints[i] + " ");
         }
+    }
+
+
+    static int[] radixSort(int[] array) {
+        int[] outArray = new int[array.length];
+        for( int segment=0;segment<4;segment++) {
+            int[] countArray = new int[10];
+            int divider =  (int)Math.pow(10,segment);
+            for (int j : array) {
+                int pos = (j / divider) % 10;
+                countArray[pos] = countArray[pos] + 1;
+            }
+            for (int i = 0; i < countArray.length - 1; i++) {
+                countArray[i+1]= countArray[i+1]+countArray[i];
+            }
+            for (int j=array.length-1;j>=0;j-- ) {
+                int pos = (array[j] / divider) % 10;
+                int resultPos = countArray[pos] -1;
+                countArray[pos] = resultPos;
+                outArray[resultPos]=array[j];
+            }
+            System.arraycopy(outArray,0, array,0, outArray.length);
+
+        }
+        return outArray;
     }
 
     static int[] countingSort(int[] array) {
