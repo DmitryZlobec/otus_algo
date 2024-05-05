@@ -17,6 +17,8 @@ public class Main {
         System.out.println("myHashMap = " + myHashMap);
         System.out.println("Key1 value " + myHashMap.get("Key1"));
         System.out.println("Key2 value " + myHashMap.get("Key2"));
+        myHashMap.remove("Key1");
+        System.out.println("myHashMap = " + myHashMap);
         System.out.println("End");
 
 

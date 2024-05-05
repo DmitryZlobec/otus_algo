@@ -1,3 +1,4 @@
+import java.security.interfaces.ECKey;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -62,16 +63,12 @@ public class DmitryHashMap<K,V> implements Map<K,V> {
 
     @Override
     public V remove(Object key) {
-        V v = get(key);
+        Entry<K,V> entry = getEntry(key);
         int place = key.hashCode() % INITIAL_CAPACITY;
         if(internalTable.get(place) != null) {
-            LinkedList<Entry<K, V>> collect = internalTable.get(place).stream()
-                    .filter(e -> !e.getKey().equals(key))
-                    .collect(Collectors.toCollection(LinkedList::new));
-            internalTable.set(place, collect);
+            internalTable.get(place).remove(entry);
         }
-
-        return v;
+        return entry.getValue();
     }
 
     @Override
@@ -105,5 +102,15 @@ public class DmitryHashMap<K,V> implements Map<K,V> {
                 .flatMap(Collection::stream)
                 .map(e-> String.format("%s -> %s", e.getKey(), e.getValue()))
                 .collect(Collectors.joining(",\n"));
+    }
+
+    public Entry<K,V> getEntry(Object key) {
+        int place = key.hashCode() % INITIAL_CAPACITY;
+        Optional<Entry<K, V>> first = Optional.ofNullable(internalTable.get(place))
+                .orElse(new LinkedList<>())
+                .stream()
+                .filter(k -> k.getKey().equals(key))
+                .findFirst();
+        return first.orElse(null);
     }
 }
