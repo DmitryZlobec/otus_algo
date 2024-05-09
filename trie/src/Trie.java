@@ -9,7 +9,7 @@ public class Trie {
         return rootNode;
     }
 
-    void add(String string, Object object) {
+    void insert(String string, Object object) {
         int[] array = TrieUtils. stringify(string);
         Node node = this.rootNode;
         for(int ch:array) {
@@ -18,7 +18,7 @@ public class Trie {
         node.setValue(object);
     }
 
-    Object get(String string) {
+    Object search(String string) {
         int[] array = TrieUtils. stringify(string);
         Node node = this.rootNode;
         for(int ch:array) {
@@ -28,6 +28,18 @@ public class Trie {
             }
         }
         return node.getValue();
+    }
+
+    boolean startsWith(String string) {
+        int[] array = TrieUtils. stringify(string);
+        Node node = this.rootNode;
+        for(int ch:array) {
+            node = node.next(ch);
+            if(node == null) {
+                return false;
+            }
+        }
+        return true;
     }
 
 

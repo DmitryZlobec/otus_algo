@@ -5,17 +5,22 @@ public class Main {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
         Trie trie = new Trie();
-        trie.add("abc", "key1");
-        trie.add("abcd", "key2");
-        trie.add("cat", "key3");
-        String abc = (String) trie.get("abc");
-        String abcd = (String) trie.get("abcd");
-        String cat = (String) trie.get("cat");
-        String dog = (String) trie.get("dog");
+        trie.insert("abc", "key1");
+        trie.insert("abcd", "key2");
+        trie.insert("cat", "key3");
+        String abc = (String) trie.search("abc");
+        String abcd = (String) trie.search("abcd");
+        String cat = (String) trie.search("cat");
+        String dog = (String) trie.search("dog");
         System.out.println("abc "+ abc);
         System.out.println("abcd "+ abcd);
         System.out.println("cat "+ cat);
         System.out.println("dog "+ dog);
+
+        boolean res = trie.startsWith("ab");
+        System.out.println("res = " + res);
+
+
 
     }
 }
