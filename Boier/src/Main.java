@@ -19,13 +19,18 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        List<Map.Entry<String, Integer>> entryList = getEntries(text,mask);
+        System.out.println("searchMap = " + entryList);
+    }
+
+    private static List<Map.Entry<String, Integer>> getEntries(String text, String mask) {
         List<Map.Entry<String, Integer>> searchList = splitText(text, mask.length());
         List<Map.Entry<String, Integer>> entryList = searchList.stream()
                 .filter(entry -> mask.equals(entry.getKey()))
                 .toList();
-        entryList.forEach(entyr-> {
-            System.out.printf("Найдено: %s%n", entyr.getValue());
+        entryList.forEach(entry-> {
+            System.out.printf("Найдено: %s%n", entry.getValue());
         });
-        System.out.println("searchMap = " + entryList);
+        return entryList;
     }
 }
