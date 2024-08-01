@@ -1,22 +1,31 @@
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Main {
 
     public static final int MAX_SIZE = 3;
 
     public static void main(String[] args) {
-        String text = "aaaaaaBBaaaaCCfffggggffffddddsssSSS";
-        System.out.println(text);
+        StringBuilder stringBuilder = new StringBuilder();
+        IntStream.range(0,255).forEach(i-> {
+            stringBuilder.append("a");
+        });
+
+
+        String text = stringBuilder.toString();
+        System.out.println("Source="+text);
         byte[] bytes = rleIn(text.getBytes());
+        System.out.println("bytes = " + new String(bytes, Charset.defaultCharset()));
         byte[] restored = rleOut(bytes);
         StringBuilder sb = new StringBuilder();
         for (byte b : restored) {
             sb.append((char) b);
         }
         System.out.println(sb);
-        System.out.println("initial="+ text.length()+" compressed="+ bytes.length);
+        System.out.println("initial="+ text.length()+" compressed="+ bytes.length+" restored="+restored.length);
     }
 
     public static byte[] rleIn(byte[] input) {
